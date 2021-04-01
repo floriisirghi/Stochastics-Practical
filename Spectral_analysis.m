@@ -11,8 +11,8 @@ plotting = "True";
 %--------------------------------------------------------------------------
 
 % TIME AXIS INPUT VECTOR DEFINITION
-        dt = 0.01; %if you use 0.1 plots look better
-        T  = 200; 
+        dt = 0.01; 
+        T  = 1000; 
         t = [0:dt:T];
         N = length(t);
         Fs = 1/dt;
@@ -46,26 +46,6 @@ plotting = "True";
         Stt_1 = mag(:,3).^2;
         Sqq_1 = mag(:,4).^2;
         Snn_1 = mag(:,5).^2;
-
-        if plotting=="True"
-        % PLOT POWER SPECTRA
-            figure(1)
-            subplot(2,3,1); 
-            loglog(omega,Suu_1); xlabel('$\omega$ [rad/sec]','interpreter','latex'); ylabel('$S_{\hat{u}\hat{u}}$ [$\frac{1}{rad/s}$]','interpreter','latex');
-            grid on
-            subplot(2,3,2); 
-            loglog(omega,Saa_1); xlabel('$\omega$ [rad/sec]','interpreter','latex');  ylabel('$S_{\alpha\alpha}$ [$\frac{rad^2}{rad/s}$]','interpreter','latex');
-            grid on
-            subplot(2,3,3); 
-            loglog(omega,Stt_1); xlabel('$\omega$ [rad/sec]','interpreter','latex');  ylabel('$S_{\theta\theta}$ [$\frac{rad^2}{rad/s}$]','interpreter','latex');
-            grid on
-            subplot(2,3,4); 
-            loglog(omega,Sqq_1);xlabel('$\omega$ [rad/sec]','interpreter','latex');  ylabel('$S_{\frac{qc}{V}\frac{qc}{V}}$ [$\frac{rad^2}{rad/s}$]','interpreter','latex');
-            grid on
-            subplot(2,3,5); 
-            loglog(omega,Snn_1); xlabel('$\omega$ [rad/sec]','interpreter','latex'); ylabel('$S_{n_z n_z}$ [$\frac{1}{rad/s}$]','interpreter','latex');
-            grid on
-        end
         
         %------------------------------------------------------------------
         
@@ -83,25 +63,7 @@ plotting = "True";
         Stt_1_sp = mag_sp(:,2).^2;
         Sqq_1_sp = mag_sp(:,3).^2;
         Snn_1_sp = mag_sp(:,4).^2;
-        
-        if plotting=="True" 
-   
-            % PLOT POWER SPECTRA
-            figure(2)
-            subplot(2,2,1); 
-            loglog(omega,Saa_1_sp); xlabel('$\omega$ [rad/sec]','interpreter','latex');  ylabel('$S_{\alpha\alpha}$ [$\frac{rad^2}{rad/s}$]','interpreter','latex');
-            grid on
-            subplot(2,2,2); 
-            loglog(omega,Stt_1_sp); xlabel('$\omega$ [rad/sec]','interpreter','latex');  ylabel('$S_{\theta\theta}$ [$\frac{rad^2}{rad/s}$]','interpreter','latex');
-            grid on
-            subplot(2,2,3); 
-            loglog(omega,Sqq_1_sp);xlabel('$\omega$ [rad/sec]','interpreter','latex');  ylabel('$S_{\frac{qc}{V}\frac{qc}{V}}$ [$\frac{rad^2}{rad/s}$]','interpreter','latex');
-            grid on
-            subplot(2,2,4); 
-            loglog(omega,Snn_1_sp); xlabel('$\omega$ [rad/sec]','interpreter','latex'); ylabel('$S_{n_z n_z}$ [$\frac{1}{rad/s}$]','interpreter','latex');
-            grid on
-        end
-        
+             
 %--------------------------------------------------------------------------
 %% ----------------------- EXPERIMENTAL METHOD FFT.m ----------------------
 %-------------------------------------------------------------------------- 
@@ -146,42 +108,6 @@ Snn_2  = (1/T)*    NZ.*conj(NZ);
 omega_2 = 2*pi*Fs*(0:(N/2)-1)/N;
         
 
-if plotting=="True"
-    % PLOT POWER SPECTRA
-    figure(3)
-
-    subplot(2,3,1); 
-    loglog(omega,Suu_1); 
-    hold on
-    loglog(omega_2,Suu_2(1:N/2)); 
-    xlabel('$\omega$ [rad/sec]','interpreter','latex'); ylabel('$S_{\hat{u}\hat{u}}$ [$\frac{1}{rad/s}$]','interpreter','latex');
-    grid on
-
-    subplot(2,3,2); 
-    loglog(omega,Saa_1);
-    hold on
-    loglog(omega_2,Saa_2(1:N/2));xlabel('$\omega$ [rad/sec]','interpreter','latex'); ylabel('$S_{\alpha\alpha}$ [$\frac{rad^2}{rad/s}$]','interpreter','latex');
-    grid on
-
-    subplot(2,3,3); 
-    loglog(omega,Stt_1);
-    hold on
-    loglog(omega_2,Stt_2(1:N/2));xlabel('$\omega$ [rad/sec]','interpreter','latex'); ylabel('$S_{\theta\theta}$ [$\frac{rad^2}{rad/s}$]','interpreter','latex');
-    grid on
-
-    subplot(2,3,4);
-    loglog(omega,Sqq_1);
-    hold on
-    loglog(omega_2,Sqq_2(1:N/2)); xlabel('$\omega$ [rad/sec]','interpreter','latex');ylabel('$S_{\frac{qc}{V}\frac{qc}{V}}$ [$\frac{rad^2}{rad/s}$]','interpreter','latex');
-
-    grid on
-
-    subplot(2,3,5); 
-    loglog(omega,Snn_1);
-    hold on
-    loglog(omega_2,Snn_2(1:N/2)); xlabel('$\omega$ [rad/sec]','interpreter','latex'); ylabel('$S_{n_z n_z}$ [$\frac{1}{rad/s}$]','interpreter','latex');
-    grid on
-end
 %------------------------------------------------------------------
         
 %--------------------- For the reduced model ---------------------
@@ -223,36 +149,6 @@ Snn_2_sp  = (1/T_sp)*    NZ_sp.*conj(NZ_sp);
 % DEFINE FREQUENCY VECTOR FOR PLOTTING
 omega_2_sp = 2*pi*Fs*(0:(N_sp/2)-1)/N_sp;
         
-        if plotting=="True"
-            % PLOT POWER SPECTRA
-            figure(4)
-
-            subplot(2,2,1); 
-            loglog(omega_2_sp,Saa_2_sp(1:N/2));xlabel('$\omega$ [rad/sec]','interpreter','latex'); ylabel('$S_{\alpha\alpha}$ [$\frac{rad^2}{rad/s}$]','interpreter','latex');
-            hold on
-            loglog(omega,Saa_1_sp);
-            grid on
-
-            subplot(2,2,2); 
-            loglog(omega,Stt_1_sp);
-            hold on
-            loglog(omega_2_sp,Stt_2_sp(1:N/2));xlabel('$\omega$ [rad/sec]','interpreter','latex'); ylabel('$S_{\theta\theta}$ [$\frac{rad^2}{rad/s}$]','interpreter','latex');
-            grid on
-
-            subplot(2,2,3);
-            loglog(omega,Sqq_1_sp);
-            hold on
-            loglog(omega_2_sp,Sqq_2_sp(1:N/2)); xlabel('$\omega$ [rad/sec]','interpreter','latex');ylabel('$S_{\frac{qc}{V}\frac{qc}{V}}$ [$\frac{rad^2}{rad/s}$]','interpreter','latex');
-
-            grid on
-
-            subplot(2,2,4); 
-            loglog(omega,Snn_1_sp);
-            hold on
-            loglog(omega_2_sp,Snn_2_sp(1:N/2)); xlabel('$\omega$ [rad/sec]','interpreter','latex'); ylabel('$S_{n_z n_z}$ [$\frac{1}{rad/s}$]','interpreter','latex');
-            grid on
-
-        end 
 %--------------------------------------------------------------------------
 %% ----------------------- EXPERIMENTAL METHOD ----------------------------
 %% ------------------------ SMOOTHING FILTER ------------------------------
@@ -279,54 +175,65 @@ for i=1:5
     Sxx_filt(length(Sxx_2(:,i)),i)= Sxx_2(length(Sxx_2(:,i)),i);
 
 end   
-        
 
+       %%%%%%%%%%%%%%%%%%%  PLOTTING %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+       %%%%%%%%%%%%%%%%%% COMPLETE MODEL %%%%%%%%%%%%%%%%%%%%%%%%%%
+       
         if plotting=="True"
-            figure(5)
+            figure(1)
 
             subplot(3,2,1); 
-            loglog(omega,Suu_1);
-            hold on
-            loglog(omega_2,Suu_2(1:N/2)); 
+            
+            loglog(omega_2,Suu_2(1:N/2),'color', [0.3010, 0.7450, 0.9330]); 
             hold on
             loglog(omega_2, Sxx_filt(:,1),'color',[0 0.5 0]); 
-            xlabel('$\omega$ [rad/sec]','interpreter','latex'); ylabel('$S_{\hat{u}\hat{u}}$ [$\frac{1}{rad/s}$]','interpreter','latex');
+            hold on
+            loglog(omega,Suu_1,"k--" ,"LineWidth",1.2);
+            
+            axis(10.^[-2,2,-15,0])
+            xlabel('$\omega$ [rad/sec]','interpreter','latex'); ylabel('$S_{\hat{u}\hat{u}}$ [$\frac{rad^2}{Hz}$]','FontSize',13,'interpreter','latex');
             grid on
 
             subplot(3,2,2); 
-            loglog(omega,Saa_1);
+            loglog(omega_2,Saa_2(1:N/2),'color', [0.3010, 0.7450, 0.9330]); 
             hold on
-            loglog(omega_2,Saa_2(1:N/2)); 
+            loglog(omega_2, Sxx_filt(:,2),'color',[0 0.5 0]);
             hold on
-            loglog(omega_2, Sxx_filt(:,2),'color',[0 0.5 0]); 
-            xlabel('$\omega$ [rad/sec]','interpreter','latex'); ylabel('$S_{\alpha\alpha}$ [$\frac{rad^2}{rad/s}$]','interpreter','latex');
+            loglog(omega,Saa_1,"k--" ,"LineWidth",1.2);
+            axis(10.^[-2,2,-15,0])
+            xlabel('$\omega$ [rad/sec]','interpreter','latex'); ylabel('$S_{\alpha\alpha}$ [$\frac{rad^2}{Hz}$]','FontSize',13,'interpreter','latex');
             grid on
 
-            subplot(3,2,3); 
-            loglog(omega,Stt_1);
+            subplot(3,2,3);
+            loglog(omega_2,Stt_2(1:N/2),'color', [0.3010, 0.7450, 0.9330]); 
             hold on
-            loglog(omega_2,Stt_2(1:N/2)); 
+            loglog(omega_2, Sxx_filt(:,3),'color',[0 0.5 0]);
             hold on
-            loglog(omega_2, Sxx_filt(:,3),'color',[0 0.5 0]); 
-            xlabel('$\omega$ [rad/sec]','interpreter','latex'); ylabel('$S_{\theta\theta}$ [$\frac{rad^2}{rad/s}$]','interpreter','latex');
+            loglog(omega,Stt_1,"k--" ,"LineWidth",1.2);
+            
+            axis(10.^[-2,2,-15,0])
+            xlabel('$\omega$ [rad/sec]','interpreter','latex'); ylabel('$S_{\theta\theta}$ [$\frac{rad^2}{Hz}$]','FontSize',13,'interpreter','latex');
             grid on 
 
             subplot(3,2,4); 
-            loglog(omega,Sqq_1);
+            loglog(omega_2,Sqq_2(1:N/2),'color', [0.3010, 0.7450, 0.9330]); 
             hold on
-            loglog(omega_2,Sqq_2(1:N/2)); 
+            loglog(omega_2, Sxx_filt(:,4),'color',[0 0.5 0]);
             hold on
-            loglog(omega_2, Sxx_filt(:,4),'color',[0 0.5 0]); 
-            xlabel('$\omega$ [rad/sec]','interpreter','latex'); ylabel('$S_{\frac{qc}{V}\frac{qc}{V}}$ [$\frac{rad^2}{rad/s}$]','interpreter','latex');
+            loglog(omega,Sqq_1,"k--" ,"LineWidth",1.2);
+            
+            axis(10.^[-2,2,-20,-5])
+            xlabel('$\omega$ [rad/sec]','interpreter','latex'); ylabel('$S_{\frac{qc}{V}\frac{qc}{V}}$ [$\frac{rad^2}{Hz}$]','FontSize',13,'interpreter','latex');
             grid on
 
             subplot(3,2,5); 
-            loglog(omega,Snn_1);
+            loglog(omega_2,Snn_2(1:N/2),'color', [0.3010, 0.7450, 0.9330]); 
             hold on
-            loglog(omega_2,Snn_2(1:N/2)); 
-            hold on
-            loglog(omega_2, Sxx_filt(:,5),'color',[0 0.5 0]); 
-            xlabel('$\omega$ [rad/sec]','interpreter','latex'); ylabel('$S_{n_z n_z}$ [$\frac{1}{rad/s}$]','interpreter','latex');
+            loglog(omega_2, Sxx_filt(:,5),'color',[0 0.5 0]);
+            hold on;
+            loglog(omega,Snn_1,"k--" ,"LineWidth",1.2);
+            axis(10.^[-2,2,-10,0])
+            xlabel('$\omega$ [rad/sec]','interpreter','latex'); ylabel('$S_{n_z n_z}$ [$\frac{1}{Hz}$]','FontSize',13,'interpreter','latex');
             grid on
         end
 
@@ -351,43 +258,52 @@ for i=1:4
 
 end   
 
+
+       %%%%%%%%%%%%%%%%%%%  PLOTTING %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+       %%%%%%%%%%%%%%%%%% REDUCED MODEL %%%%%%%%%%%%%%%%%%%%%%%%%%
+
         if plotting=="True"
-            figure(6)
+            figure(2)
 
             subplot(2,2,1); 
-            loglog(omega,Saa_1_sp);
+            loglog(omega_2_sp,Saa_2_sp(1:N/2),'color', [0.3010, 0.7450, 0.9330]); 
             hold on
-            loglog(omega_2_sp,Saa_2_sp(1:N/2)); 
+            loglog(omega_2_sp, Sxx_filt_sp(:,1),'color',[0 0.5 0]);
+            axis(10.^[-2,2,-15,0])
+            xlabel('$\omega$ [rad/sec]','interpreter','latex'); ylabel('$S_{\alpha\alpha}$ [$\frac{rad^2}{Hz}$]','FontSize',13,'interpreter','latex');
+            loglog(omega,Saa_1_sp,"k--" ,"LineWidth",1.2);
             hold on
-            loglog(omega_2_sp, Sxx_filt_sp(:,1),'color',[0 0.5 0]); 
-            xlabel('$\omega$ [rad/sec]','interpreter','latex'); ylabel('$S_{\alpha\alpha}$ [$\frac{rad^2}{rad/s}$]','interpreter','latex');
             grid on
 
             subplot(2,2,2); 
-            loglog(omega,Stt_1_sp);
-            hold on
-            loglog(omega_2_sp,Stt_2_sp(1:N/2)); 
+            loglog(omega_2_sp,Stt_2_sp(1:N/2),'color', [0.3010, 0.7450, 0.9330]); 
             hold on
             loglog(omega_2_sp, Sxx_filt_sp(:,2),'color',[0 0.5 0]); 
-            xlabel('$\omega$ [rad/sec]','interpreter','latex'); ylabel('$S_{\theta\theta}$ [$\frac{rad^2}{rad/s}$]','interpreter','latex');
+            hold on
+            loglog(omega,Stt_1_sp,"k--","LineWidth",1.2);
+            axis(10.^[-2,2,-15,0]);
+            xlabel('$\omega$ [rad/sec]','interpreter','latex'); ylabel('$S_{\theta\theta}$ [$\frac{rad^2}{Hz}$]','FontSize',13,'interpreter','latex');
             grid on 
 
-            subplot(2,2,3); 
-            loglog(omega,Sqq_1_sp);
-            hold on
-            loglog(omega_2_sp,Sqq_2_sp(1:N/2));
+            subplot(2,2,3);
+            loglog(omega_2_sp,Sqq_2_sp(1:N/2),'color', [0.3010, 0.7450, 0.9330]);
             hold on
             loglog(omega_2_sp, Sxx_filt_sp(:,3), 'color',[0 0.5 0]); 
-            xlabel('$\omega$ [rad/sec]','interpreter','latex'); ylabel('$S_{\frac{qc}{V}\frac{qc}{V}}$ [$\frac{rad^2}{rad/s}$]','interpreter','latex');
+            hold on 
+            loglog(omega,Sqq_1_sp,"k--","LineWidth",1.2);
+            
+            axis(10.^[-2,2,-20,-5]);
+            xlabel('$\omega$ [rad/sec]','interpreter','latex'); ylabel('$S_{\frac{qc}{V}\frac{qc}{V}}$ [$\frac{rad^2}{Hz}$]','FontSize',13,'interpreter','latex');
             grid on
 
             subplot(2,2,4); 
-            loglog(omega,Snn_1_sp);
-            hold on
-            loglog(omega_2_sp,Snn_2_sp(1:N/2)); 
+            loglog(omega_2_sp,Snn_2_sp(1:N/2),'color', [0.3010, 0.7450, 0.9330]); 
             hold on
             loglog(omega_2_sp, Sxx_filt_sp(:,4), 'color',[0 0.5 0]); 
-            xlabel('$\omega$ [rad/sec]','interpreter','latex'); ylabel('$S_{n_z n_z}$ [$\frac{1}{rad/s}$]','interpreter','latex');
+            hold on
+            loglog(omega,Snn_1_sp,"k--","LineWidth",1.2);
+            axis(10.^[-2,2,-10,0]);
+            xlabel('$\omega$ [rad/sec]','interpreter','latex'); ylabel('$S_{n_z n_z}$ [$\frac{1}{Hz}$]','FontSize',13,'interpreter','latex');
             grid on
 
         end

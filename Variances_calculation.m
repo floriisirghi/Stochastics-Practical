@@ -40,7 +40,7 @@ disp(var_analytical_sp);
 %based on exampl72.m
 
 dt = 0.01; 
-T  = 200; 
+T  = 1000; 
 t = [0:dt:T];
 N = length(t);
 
@@ -53,11 +53,11 @@ u = zeros(3,N); x0=B_complete_system(:,2)+B_complete_system(:,3);
 % CALCULATION OF IMPULSE RESPONSES
 h = lsim(A_complete_system,B_complete_system,C_complete_system,D_complete_system,u,t,x0);	
 
-% PLOT IMPULSE RESPONSE
-subplot(2,1,1)
-plot(t,h(:,1)); xlabel('Time [sec]'); ylabel('h u w3(t)');
-subplot(2,1,2)
-plot(t,h(:,2)); xlabel('Time [sec]'); ylabel('h alpha w3(t)');
+% % PLOT IMPULSE RESPONSE
+% subplot(2,1,1)
+% plot(t,h(:,1)); xlabel('Time [sec]'); ylabel('h u w3(t)');
+% subplot(2,1,2)
+% plot(t,h(:,2)); xlabel('Time [sec]'); ylabel('h alpha w3(t)');
 
 
 % CALCULATION OF PRODUCT MATRIX OF IMPULSE RESPONSES
@@ -67,7 +67,7 @@ h11=h(:,1).*h(:,1);h12=h(:,1).*h(:,2);h13=h(:,1).*h(:,3);h14=h(:,1).*h(:,4);h15=
                                                          h44=h(:,4).*h(:,4);h45=h(:,4).*h(:,5);
                                                                             h55=h(:,5).*h(:,5);
  % PLOT (CROSS) PRODUCTS OF IMPULSE RESPONSES
-plot(t,h11); xlabel('Time [sec]'); ylabel('h1*h1(t)');
+%plot(t,h11); xlabel('Time [sec]'); ylabel('h1*h1(t)');
 
 
 % INTEGRATION OF PRODUCT MATRIX OF IMPULSE RESPONSES
@@ -110,11 +110,11 @@ u = zeros(3,N); x0_sp=B_sp(:,2)+B_sp(:,3);
 % CALCULATION OF IMPULSE RESPONSES
 h_sp = lsim(A_sp,B_sp,C_sp,D_sp,u,t,x0_sp);	
 
-% PLOT IMPULSE RESPONSE
-subplot(2,1,1)
-plot(t,h_sp(:,1)); xlabel('Time [sec]'); ylabel('h u w3(t)');
-subplot(2,1,2)
-plot(t,h_sp(:,2)); xlabel('Time [sec]'); ylabel('h alpha w3(t)');
+% % PLOT IMPULSE RESPONSE
+% subplot(2,1,1)
+% plot(t,h_sp(:,1)); xlabel('Time [sec]'); ylabel('h u w3(t)');
+% subplot(2,1,2)
+% plot(t,h_sp(:,2)); xlabel('Time [sec]'); ylabel('h alpha w3(t)');
 
 
 % CALCULATION OF PRODUCT MATRIX OF IMPULSE RESPONSES
@@ -124,7 +124,7 @@ h11_sp=h_sp(:,1).*h_sp(:,1);h12_sp=h_sp(:,1).*h_sp(:,2);h13_sp=h_sp(:,1).*h_sp(:
                                                                                     h44_sp=h_sp(:,4).*h_sp(:,4);
                                                                                                                
  % PLOT (CROSS) PRODUCTS OF IMPULSE RESPONSES
-plot(t,h11_sp); xlabel('Time [sec]'); ylabel('h1*h1(t)');
+%plot(t,h11_sp); xlabel('Time [sec]'); ylabel('h1*h1(t)');
 
 
 % INTEGRATION OF PRODUCT MATRIX OF IMPULSE RESPONSES
